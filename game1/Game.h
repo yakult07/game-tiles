@@ -3,6 +3,7 @@
 #include<iostream>
 #include<Vector>
 #include<ctime>
+#include<sstream>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -23,8 +24,16 @@ class Game
     sf::Vector2i mousePosWindow;// posiçao do mause na janela(window)
     sf::Vector2f mousePosview; // visualização da posição do mouse
 
+    //Recursos
+    sf::Font font;
+
+    //Texto
+    sf::Text uiText;
+
     //game logica
+    bool endGame;
     unsigned points; //pontos
+    int health; // saude
     float enemySpawnTimer; //tempo de desova do inimigo
     float enemySpawnTImerMax; //tempo máximo de desova do inimigo
     int maxEnemies; // maximo de inimigo
@@ -39,6 +48,8 @@ class Game
     //funcoes
     void initVariables(); // variaveis  
     void initWindow();  // janela
+    void initFonts();  // 
+    void initText(); //
     void initEnemies(); // inimigo
 
     public:
@@ -47,16 +58,19 @@ class Game
 
 
     const bool running() const; // inica loop da janela
+    const bool getEndGame() const; // fim de jogo
 
     //funçoes
-    void spawnEnemy();
+    void spawnEnemy();// desova de enemy
 
     void pollEvents();// loop da janela
     void updateMausePositions();// mause
+    void updateText();//
     void updateEnemies(); // atualizar inimigos
-    void update();
+    void update();// atualização
 
-    void renderEnemies();
+    void renderText(sf::RenderTarget& target);// renderização de texto e (alvo)
+    void renderEnemies(sf::RenderTarget& target);// renderização de enemies(alvo)
     void render();// renderiza e desenha.
 
     
